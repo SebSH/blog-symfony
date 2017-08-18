@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for message in app.flashes('notice') %}
+        <div class="alert alert-success">
+            <b>{{ message }}</b>
+        </div>
+    {% endfor %}
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ article.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ article.title }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ article.content }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{% if article.createdAt %}{{ article.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Modifiedat</th>
+                <td>{% if article.modifiedAt %}{{ article.modifiedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        <a href="{{ path('homepage') }}" class="pull-right">Back to the list</a>
+    </p>
+
+    {#{% for commentary in article.commentaries %}
+        {{  commentary.content }}
+    {% endfor %}#}
+
+
+
+
+
+{% endblock %}

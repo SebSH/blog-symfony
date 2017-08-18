@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+        {% if is_granted('ROLE_USER') %}
+            <a href="{{ path('homepage') }}" style="font-size: 30px;" class="pull-right"><i class="fa fa-user" style="color: lawngreen" aria-hidden="true"></i></a>
+
+            <a href="{{ path('logout') }}" style="font-size: 30px;" class="pull-right"><i class="fa fa-power-off" aria-hidden="true"></i></a>&nbsp;&nbsp;
+            <a href="{{ path('article_new') }}" style="font-size: 25px;" class="pull-left"><i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;&nbsp;
+
+
+        {%  else %}
+            <a href="{{ path('login') }}" style="font-size: 30px;" class="pull-right"><i class="fa fa-user"  aria-hidden="true"></i></a>
+
+        <a href="{{ path('user_new') }}" style="font-size: 30px;" class="pull-right"><i class="fa fa-user-plus" aria-hidden="true"></i></a>
+        {% endif %}
+
+
+        {% for article in articles %}
+            <br>
+
+            <div class="jumbotron text-center" id="ticket">
+                <h2>{{ article.title }}</h2>
+                <p>Auteur: {{ article.user.username }}</p><p>Posté le: {% if article.createdAt %}{{ article.createdAt|date('Y-m-d') }} à {{ article.createdAt|date('H:i:s') }}{% endif %}</p>
+                <div>
+                    <p class="test">{{ article.content }}</p>
+                    <a href="{{ path('default_article', { 'id': article.id }) }}">Lire plus</a>
+                </div>
+
+
+            </div>
+
+
+
+        {% endfor %}
+
+
+
+{% endblock %}
+
+

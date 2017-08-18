@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Nouvel utilisateur</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Inscription" class="btn btn-primary" />
+    {{ form_end(form) }}
+    <a href="{{ path('homepage') }}" class="pull-right">Back to the list</a>
+
+{% endblock %}

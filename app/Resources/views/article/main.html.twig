@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <p>
+        <a href="{{ path('homepage') }}" class="pull-right">Back to the list</a>
+    </p>
+
+    <table>
+        <tbody>
+
+        <tr>
+            <td><h1>{{ article.title }}<br><br></h1></td>
+        </tr>
+
+        <tr>
+            <th>Recette:</th>
+            <td>{{ article.content }}</td>
+        </tr>
+        <tr>
+            <th><br>Publié le:</th>
+            <td><br>{% if article.createdAt %}{{ article.createdAt|date('Y-m-d ') }} à {{ article.createdAt|date(' H:i:s') }}{% endif %}</td>
+        </tr>
+        <tr>
+            <th><br>Auteur:</th>
+            <td><br>{{ article.user.username }}</td>
+        </tr>
+        <tr>
+            <th><br>Avis:</th>
+            <td><br><i class="fa fa-star" style="color: #f06292 " aria-hidden="true"></i><i class="fa fa-star" style="color: #f06292 " aria-hidden="true"></i><i class="fa fa-star" style="color: #f06292 " aria-hidden="true"></i><i class="fa fa-star" style="color: #f06292 " aria-hidden="true"></i><i class="fa fa-star-half-o" style="color: #f06292 "aria-hidden="true"></i></td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <br><br><br><br><br><br><br><br><br>
+    <h3>Ajouter un commentaire:</h3>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <p style="font-size: 13px">*Inscrivez-vous pour pouvoir posté un commentaire</p>
+
+    <input type="submit" value="Envoyer" class="btn btn-primary" {% if currentUserUsername == null %} disabled{% endif %}  />
+    {{ form_end(form) }}
+    <br><br><br><br>
+    {% for commentary in article.commentaries %}
+        <div class="jumbotron">
+            <div class="media">
+                <div class="media-left">
+                    <img src="{{ asset('bundles/app/img/user-default.png') }}" class="media-object" style="width:80px">
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading"><p><b>De:</b> {{  commentary.pseudo }}</p></h4>
+                    <p><b>Envoyé le:</b> {{  commentary.createdAt|date('Y-m-d ') }} à {{  commentary.createdAt|date(' H:i:s') }}</p>
+                    <p><b>Message:</b><b> " </b>{{  commentary.content }}<b> "</b></p>
+                </div>
+            </div>
+        </div>
+        <br><br>
+
+    {% endfor %}
+
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+{% endblock %}
