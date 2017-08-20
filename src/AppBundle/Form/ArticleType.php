@@ -24,21 +24,15 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title')
-                ->add('content')
-                ->add('user',EntityType::class, array(
-                    'class'    => 'AppBundle:User',
-                    'choice_label' => 'username',
-                    'label' => '',
-                    'attr' => array(
-                        'hidden' => true
-                    )
+                ->add('content');
 
 
 
 
 
 
-            ));
+
+
 
     }
 

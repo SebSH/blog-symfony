@@ -70,7 +70,6 @@ class ArticleController extends Controller
         //$entity =  $this->get('security.token_storage')->getToken()->getUser()->getUsername();
 
         $article = new Article();
-        $article->setUser($this->get('security.token_storage')->getToken()->getUser());
 
         /*$user->setUsername('user1');
         $article->getUser()->add($user);*/
@@ -80,6 +79,8 @@ class ArticleController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $article->setUser($this->get('security.token_storage')->getToken()->getUser());
+
             $em->persist($article);
             $em->flush();
             $this->addFlash(
