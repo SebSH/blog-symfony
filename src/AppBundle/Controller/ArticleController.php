@@ -36,6 +36,29 @@ class ArticleController extends Controller
     }
 
     /**
+     * Lists all article entities.
+     *
+     * @Route("/user_article", name="article_user")
+     * @Method("GET")
+     */
+    public function getAllUserArticleAction()
+    {
+
+        $currentUserUsername = $this->get('security.token_storage')->getToken()->getUser()->getId();
+
+        $em = $this->getDoctrine()->getManager();
+
+        $articles = $em->getRepository('AppBundle:Article')->findBy(
+            array('user' => $currentUserUsername)
+        );
+
+        return $this->render('article/user.html.twig', array(
+            'articles' => $articles,
+
+        ));
+    }
+
+    /**
      * Creates a new article entity.
      *
      * @Route("/new", name="article_new")
