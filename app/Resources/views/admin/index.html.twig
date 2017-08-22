@@ -1,0 +1,48 @@
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <br><br><br><br>
+
+    <h3>
+
+        <a href="{{ path('admin_logout') }}" style="font-size: 30px;" class="pull-right"><i class="fa fa-power-off" staria-hidden="true"></i></a>Tableau de bord</h3>
+
+    <br><br>
+
+        <div class="jumbotron">
+            <nav class="navbar navbar-light" style="background-color: #37bc9b;"><h4><i class="fa fa-users" aria-hidden="true"></i>Promotions</h4></nav>
+            <table class="table">
+                <thead class="thead-inverse">
+                <tr>
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Roles</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <th scope="row">{{ user.id }}</th>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.roles[0] }}</td>
+                        <td>{% if user.roles[0] == 'ROLE_USER' %}<a  href="{{ path('promote', { 'id': user.id }) }}">Promouvoir</a>{% else %}<a  href="{{ path('demote', { 'id': user.id }) }}">Destituer</a>
+                            {% endif %}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+{% endblock %}

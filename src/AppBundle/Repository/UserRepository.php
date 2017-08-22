@@ -2,6 +2,10 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\User;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
+
 /**
  * UserRepository
  *
@@ -10,4 +14,22 @@ namespace AppBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public  function  loadUserByUsername ( $user )
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('AppBundle:User')->findBy([
+            "user" => $user,
+        ]);;
+
+        $result = $entities['roles'];
+
+        return $result;
+
+
+
+    }
+
+
 }

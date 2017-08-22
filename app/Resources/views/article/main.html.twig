@@ -29,6 +29,10 @@
             <th><br>Avis:</th>
             <td><br><i class="fa fa-star" style="color: #f06292 " aria-hidden="true"></i><i class="fa fa-star" style="color: #f06292 " aria-hidden="true"></i><i class="fa fa-star" style="color: #f06292 " aria-hidden="true"></i><i class="fa fa-star" style="color: #f06292 " aria-hidden="true"></i><i class="fa fa-star-half-o" style="color: #f06292 "aria-hidden="true"></i></td>
         </tr>
+        <tr>
+            <th><br>Commentaire(s):</th>
+            <td><br>{{ article.commentaries.count }}</td>
+        </tr>
 
         </tbody>
     </table>
@@ -43,6 +47,7 @@
     <input type="submit" value="Envoyer" class="btn btn-primary" {% if currentUserUsername == null %} disabled{% endif %}  />
     {{ form_end(form) }}
     <br><br><br><br>
+
     {% for commentary in article.commentaries %}
         <div class="jumbotron">
             <div class="media">

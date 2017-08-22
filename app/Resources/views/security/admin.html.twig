@@ -3,11 +3,11 @@
 {% block body %}
 
 
-
-    <div class="panel panel-success">
+    <div class="panel panel-info">
         <div class="panel-heading">
 
-            <h3>Connexion</h3>
+            <h3><i class="fa fa-lock" aria-hidden="true"></i>
+                Admin</h3>
         </div>
         <div class="panel-body">
             {% if error %}
@@ -16,7 +16,7 @@
                 </div>
             {% endif %}
 
-            <form action="{{ path('login') }}" method="post">
+            <form action="{{ path('admin') }}" method="post">
                 <div class="form-group">
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}" />
@@ -29,9 +29,10 @@
                     If you want to control the URL the user
                     is redirected to on success (more details below)
                 #}
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+                <input type="hidden" name="{{ path('article_index') }}" value="/account" />
 
-                <button class="btn btn-success pull-right" type="submit">login</button>
+
+                <button class="btn btn-info pull-right" type="submit">login</button>
             </form>
 
         </div>

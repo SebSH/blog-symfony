@@ -24,13 +24,14 @@ class ArticleController extends Controller
      */
     public function indexAction()
     {
-
+        $commentary = new Commentary();
         $em = $this->getDoctrine()->getManager();
 
         $articles = $em->getRepository('AppBundle:Article')->findAll();
 
         return $this->render('article/index.html.twig', array(
             'articles' => $articles,
+            'commentary' => $commentary,
 
         ));
     }

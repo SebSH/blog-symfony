@@ -2,16 +2,17 @@
 
 namespace AppBundle\Entity;
 
-
+use AppBundle\Controller\DefaultController;
 use Doctrine\ORM\Mapping as ORM;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpKernel\Tests\Controller;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * User
@@ -20,7 +21,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @UniqueEntity(fields={"username", "email"})
  */
-class User implements UserInterface
+class User extends \Symfony\Bundle\FrameworkBundle\Controller\Controller implements UserInterface
 {
     /**
      * @var int
@@ -72,6 +73,15 @@ class User implements UserInterface
      */
     private $articles;
 
+
+    /**
+     * @var array
+     * @ORM\Column(name="roles", type="array")
+     */
+    private $roles = array();
+
+
+
     /**
      * user constructor.
      */
@@ -79,6 +89,7 @@ class User implements UserInterface
     {
         $this->articles = new ArrayCollection();
         $this->createdAt = new \Datetime();
+
     }
 
     /**
@@ -242,9 +253,24 @@ class User implements UserInterface
 
     public function getRoles()
     {
-        return [
-            'ROLE_USER'
-        ];    }
+
+        $roles = $this->roles;
+        return array($roles);
+
+    }
+
+
+
+
+    /**
+     * @param array $roles
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+    }
+
+
 
     public function getSalt()
     {
@@ -255,4 +281,7 @@ class User implements UserInterface
     {
         // TODO: Implement eraseCredentials() method.
     }
+
+
+
 }

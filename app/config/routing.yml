@@ -4,3 +4,7 @@ app:
 
 logout:
     path: /logout
+
+admin_logout:
+    path:   /admin/
+
