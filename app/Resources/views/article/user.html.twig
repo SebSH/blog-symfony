@@ -4,12 +4,11 @@
     <p>
         <a href="{{ path('homepage') }}" class="pull-right">Back to the list</a>
     </p>
+
     <h1>Mes Publications</h1>
 
 {% for article in articles %}
-
     <br><br>
-
     <div class="jumbotron text-center">
         <h2>{{ article.title }}</h2>
         <p>Auteur: {{ article.user.username }}</p><p>Posté le: {% if article.createdAt %}{{ article.createdAt|date('Y-m-d') }} à {{ article.createdAt|date('H:i:s') }}{% endif %}</p>
@@ -18,10 +17,5 @@
         </div>
         <a href="{{ path('article_edit', { 'id': article.id }) }}">Editer</a>|<a href="{{ path('article_delete', { 'id': article.id }) }}">Supprimer</a>
     </div>
-
-
-
 {% endfor %}
-
-
 {% endblock %}

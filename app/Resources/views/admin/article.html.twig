@@ -1,0 +1,38 @@
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+
+    <p>
+        <a href="{{ path('admin_home') }}" class="pull-right">Back to the home</a>
+    </p>
+
+
+    <br><br><br><br><br><br>
+
+        <br><br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Article</th>
+                <th><i class="fa fa-calendar" aria-hidden="true"></i>Date</th>
+                <th><i class="fa fa-cogs" aria-hidden="true"></i>Action</th>
+            </tr>
+            </thead>
+    {% for article in articles %}
+            <tbody>
+            <tr>
+                <td scope="row">{{ article.id }}</td>
+                <td>{{ article.user.username }}</td>
+                <td>{{ article.title }}</td>
+                <td>{{ article.createdAt|date('Y-m-d') }}</td>
+                <td><a href="{{ path('admin_delete', {'id': article.id }) }}">supprimer</a></td>
+            </tr>
+
+            </tbody>
+    {% endfor %}
+        </table>
+
+
+{% endblock %}

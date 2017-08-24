@@ -8,11 +8,9 @@
 
     <table>
         <tbody>
-
         <tr>
             <td><h1>{{ article.title }}<br><br></h1></td>
         </tr>
-
         <tr>
             <th>Recette:</th>
             <td>{{ article.content }}</td>
@@ -42,6 +40,7 @@
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
+
     <p style="font-size: 13px">*Inscrivez-vous pour pouvoir posté un commentaire</p>
 
     <input type="submit" value="Envoyer" class="btn btn-primary" {% if currentUserUsername == null %} disabled{% endif %}  />
@@ -62,11 +61,7 @@
             </div>
         </div>
         <br><br>
-
     {% endfor %}
-
-
     <br><br><br><br><br><br><br><br><br><br><br><br><br>
-
 
 {% endblock %}

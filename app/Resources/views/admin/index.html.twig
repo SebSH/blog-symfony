@@ -1,17 +1,13 @@
 {% extends 'base2.html.twig' %}
 
 {% block body %}
+
     <div class="container">
+        <h2><a href="{{ path('admin_logout') }}" class="pull-right" style="font-size: 30px;"><i class="fa fa-power-off" staria-hidden="true"></i></a>Espace Administrateur</h2>
+        <br><br><br><br><br><br><br><br>
         <br><br><br><br>
-
-    <h3>
-
-        <a href="{{ path('admin_logout') }}" style="font-size: 30px;" class="pull-right"><i class="fa fa-power-off" staria-hidden="true"></i></a>Tableau de bord</h3>
-
-    <br><br>
-
         <div class="jumbotron">
-            <nav class="navbar navbar-light" style="background-color: #37bc9b;"><h4><i class="fa fa-users" aria-hidden="true"></i>Promotions</h4></nav>
+            <nav class="navbar navbar-light" style="background-color: #37bc9b;"><h4><i class="fa fa-users" aria-hidden="true"></i>Gestion des membres</h4></nav>
             <table class="table">
                 <thead class="thead-inverse">
                 <tr>
@@ -19,9 +15,10 @@
                     <th>Username</th>
                     <th>Roles</th>
                     <th>Actions</th>
+                    <th>Publications</th>
+                    <th>Informations</th>
                 </tr>
                 </thead>
-
                 <tbody>
                 {% for user in users %}
                     <tr>
@@ -30,19 +27,14 @@
                         <td>{{ user.roles[0] }}</td>
                         <td>{% if user.roles[0] == 'ROLE_USER' %}<a  href="{{ path('promote', { 'id': user.id }) }}">Promouvoir</a>{% else %}<a  href="{{ path('demote', { 'id': user.id }) }}">Destituer</a>
                             {% endif %}</td>
+                        <td><a href="">{{ user.articles.count }}</a></td>
+                        <td><a href="{{ path('articles_user', { 'id': user.id }) }}">Voir</a></td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
-
         </div>
-
-
-
-
+        <br><br><br><br><br><br><br><br>
     </div>
-
-
-
 
 {% endblock %}

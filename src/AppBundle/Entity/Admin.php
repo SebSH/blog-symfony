@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
  * @ORM\Table(name="admin")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AdminRepository")
  */
-class Admin implements UserInterface
+class Admin extends \Symfony\Bundle\FrameworkBundle\Controller\Controller implements UserInterface
 {
     /**
      * @var int
@@ -38,6 +38,13 @@ class Admin implements UserInterface
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
+
+    /**
+     * @var array
+     * @ORM\Column(name="roles", type="array")
+     */
+    private $roles = array();
+
 
 
     /**
@@ -117,6 +124,14 @@ class Admin implements UserInterface
     public function getRoles()
     {
         return array('ROLE_ADMIN');
+    }
+
+    /**
+     * @param array $roles
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
     }
 
     /**

@@ -23,8 +23,6 @@ class UserType extends AbstractType
                 'second_options' => array('label' => 'Confirmation Password'),
                 'invalid_message' => 'Les deux passwords doivent etre identique',
 
-
-
             ));
 
     }

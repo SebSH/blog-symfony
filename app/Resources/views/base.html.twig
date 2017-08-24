@@ -18,16 +18,21 @@
                 crossorigin="anonymous"></script>
         <script src="https://use.fontawesome.com/366265e0d6.js"></script>
     </head>
+
     <body>
     <div class="container">
         {% block body %}{% endblock %}
-    </div>       {% block javascripts %}<link href="{{ asset('bundles/app/js/styles.js') }}"><script>
-        console.log("hello world");
-        jQuery(document).ready(function($) {
-            $('.test').each(function(index, value) {
-                $(this).html($(this).html().substring(0, 375)).append("..."); // number of characters
+    </div>
+    {% block javascripts %}
+        <link href="{{ asset('bundles/app/js/styles.js') }}">
+        <script>
+            console.log("hello world");
+            jQuery(document).ready(function($) {
+                $('.test').each(function(index, value) {
+                    $(this).html($(this).html().substring(0, 375)).append("..."); // number of characters
+                });
             });
-        });
-    </script>{% endblock %}
+        </script>
+    {% endblock %}
     </body>
 </html>

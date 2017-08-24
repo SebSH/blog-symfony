@@ -1,8 +1,9 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Admin;
 
-use AppBundle\Entity\User;
+use AppBundle\Entity\Article;
+use AppBundle\Entity\Commentary;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -20,7 +21,7 @@ class AdminController extends Controller
 {
 
     /**
-     * Lists all user entities.
+     * Login Admin
      *
      * @Route("/", name="admin")
      *
@@ -40,7 +41,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Lists all user entities.
+     * Admin Area
      *
      * @Route("/home", name="admin_home")
      *
@@ -48,9 +49,8 @@ class AdminController extends Controller
     public function homeAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $users = $em->getRepository('AppBundle:User')->findAll();
-        // rend la vue
+
         return $this->render('admin/index.html.twig', array(
             'users' => $users,
 
@@ -73,6 +73,7 @@ class AdminController extends Controller
 
         $user->setRoles('ROLE_AUTHOR');
         $em->flush();
+
         return $this->render('admin/index.html.twig', array(
             'users' => $users,
 
@@ -96,9 +97,8 @@ class AdminController extends Controller
         $user->getRoles();
 
         $user->setRoles('ROLE_USER');
-
-
         $em->flush();
+
         return $this->render('admin/index.html.twig', array(
             'users' => $users,
 
@@ -107,5 +107,51 @@ class AdminController extends Controller
 
     }
 
+
+    /**
+     * Lists all user's Article
+     *
+     * @Route("/show/{id}", name="articles_user")
+     * @Method("GET")
+     */
+    public function getAllUserArticleAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')->find($id);
+
+
+
+        $articles = $em->getRepository('AppBundle:Article')->findBy(
+            array('user' => $user)
+        );
+
+        return $this->render('admin/article.html.twig', array(
+            'articles' => $articles,
+
+        ));
+    }
+
+    /**
+     * Deletes a article entity.
+     *
+     * @Route("/test/{id}", name="admin_delete")
+     * @Method("GET")
+     */
+    public function deletesAction($id)
+    {
+        $commentary = new Commentary();
+
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository('AppBundle:Article')->find($id);
+        $commentary = $em->getRepository('AppBundle:Commentary')->find($id);
+        if($commentary){
+            $em->remove($commentary);
+        }
+
+        $em->remove($article);
+        $em->flush();
+
+        return $this->redirectToRoute('admin_home');
+    }
 
 }

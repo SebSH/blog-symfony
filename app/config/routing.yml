@@ -8,3 +8,4 @@ logout:
 admin_logout:
     path:   /admin/
 
+

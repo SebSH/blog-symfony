@@ -6,8 +6,10 @@ use AppBundle\Entity\User;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 
 use Symfony\Component\Validator\Constraints\DateTime;
 
@@ -24,15 +26,12 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title')
-                ->add('content');
-
-
-
-
-
-
-
-
+                ->add('content', CKEditorType::class, array('label' => 'Publier', 'attr' => array(
+                    'class' => 'form-control'
+                )))
+                ->add('save', SubmitType::class, array('label' => 'Publier', 'attr' => array(
+                    'class' => 'btn btn-primary'
+                )));
 
     }
 

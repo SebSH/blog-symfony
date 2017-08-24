@@ -37,7 +37,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * Lists all article entities.
+     * Lists all user's Article
      *
      * @Route("/user_article", name="article_user")
      * @Method("GET")
@@ -68,17 +68,13 @@ class ArticleController extends Controller
     public function newAction(Request $request)
     {
 
-        //$entity =  $this->get('security.token_storage')->getToken()->getUser()->getUsername();
-
         $article = new Article();
 
-        /*$user->setUsername('user1');
-        $article->getUser()->add($user);*/
         $form = $this->createForm('AppBundle\Form\ArticleType', $article);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()){
             $em = $this->getDoctrine()->getManager();
             $article->setUser($this->get('security.token_storage')->getToken()->getUser());
 
@@ -100,18 +96,17 @@ class ArticleController extends Controller
     }
 
     /**
-     * Finds and displays a article entity.
+     * Finds and displays a article entity with all of it commentaries.
      *
      * @Route("/{id}", name="default_article")
      * @Method({"GET", "POST"})
      */
-    public function showMainAction(Article $article, Request $request)
+    public function readMoreAction(Article $article, Request $request)
     {
 
         $commentary = new Commentary();
         $commentary->setArticle($article);
         $commentary->getArticle();
-
 
         if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             $currentUserUsername = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
@@ -119,7 +114,6 @@ class ArticleController extends Controller
         else{
             $currentUserUsername = null;
         }
-
         $deleteForm = $this->createDeleteForm($article);
 
         $form = $this->createForm('AppBundle\Form\CommentaryType', $commentary );
@@ -132,7 +126,7 @@ class ArticleController extends Controller
                 $em->flush();
         }
 
-        return $this->render('article/main.html.twig', array(
+        return $this->render('article/readMore.html.twig', array(
             'article' => $article,
             'delete_form' => $deleteForm->createView(),
             'currentUserUsername' => $currentUserUsername,
@@ -140,7 +134,6 @@ class ArticleController extends Controller
             'form' => $form->createView(),
         ));
     }
-
 
 
     /**

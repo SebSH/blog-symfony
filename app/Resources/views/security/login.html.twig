@@ -2,8 +2,6 @@
 
 {% block body %}
 
-
-
     <div class="panel panel-success">
         <div class="panel-heading">
 
@@ -15,7 +13,6 @@
                     {{ 'Oops..!! Il semblerait que le password ou le username soit incorrect '}}
                 </div>
             {% endif %}
-
             <form action="{{ path('login') }}" method="post">
                 <div class="form-group">
                     <label for="username">Username:</label>
@@ -30,10 +27,8 @@
                     is redirected to on success (more details below)
                 #}
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
-
                 <button class="btn btn-success pull-right" type="submit">login</button>
             </form>
-
         </div>
     </div>
 

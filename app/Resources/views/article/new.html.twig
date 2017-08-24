@@ -1,13 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
     <h1>Editer un article</h1>
     <p> <a href="{{ path('homepage') }}" class="pull-right">Back to the list</a></p>
     <br><br><br>
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" class="btn btn-primary" />
-    {{ form_end(form) }}
 
+    {{ form_start(form) }}
+    {{ form_end(form) }}
 
 {% endblock %}

@@ -23,22 +23,19 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
 
-
         if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             $currentUserUsername = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
         }
         else{
             $currentUserUsername = null;
         }
-
-
         //var_dump($currentUserUsername); die;
 
         $em = $this->getDoctrine()->getManager();
 
         $articles = $em->getRepository('AppBundle:Article')->findAll();
         // rend la vue
-        return $this->render('default/index.html.twig', array(
+        return $this->render('default/homepage.html.twig', array(
             'articles' => $articles,
             'currentUserUsername' => $currentUserUsername
 
